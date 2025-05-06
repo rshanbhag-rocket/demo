@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE reference PUBLIC "-//IBM//DTD DITA IBM Reference//EN"
+ "ibm-reference.dtd">
+<?Pub Sty _display FontColor="red"?>
+<?Pub Inc?>
+<reference id="funu_scrub_command_codes" xml:lang="en-us">
+<title><cmdname>CODES</cmdname> command</title><?Pub Caret -2?>
+<titlealts>
+<searchtitle><keyword conref="conrefs.dita#conrefs/searchtitle"/> <cmdname>CODES</cmdname> command</searchtitle>
+</titlealts>
+<shortdesc>The optional <cmdname>CODES</cmdname> command restricts
+which log record types the <cmdname>SCRUB</cmdname> command writes
+to the output <tm tmtype="tm" trademark="IMS">IMS</tm> log.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>CODES command</indexterm></keywords>
+</metadata></prolog>
+<refbody>
+<section><cmdname>CODES</cmdname> does not affect which record types
+are scrubbed.</section>
+<refsyn><title>Syntax</title><syntaxdiagram frame="all">
+<groupchoice importance="optional">
+<groupcomp importance="default"><kwd>CODES</kwd><delim>(</delim><kwd>00</kwd>
+<sep>-</sep><kwd>FF</kwd><delim>)</delim></groupcomp>
+<groupcomp><kwd>CODES</kwd><delim>(</delim>
+<groupchoice>
+<repsep>,</repsep>
+<var>type</var>
+<groupcomp><var>type</var><sep>-</sep><var>type</var></groupcomp>
+</groupchoice>
+<delim>)</delim></groupcomp>
+</groupchoice>
+</syntaxdiagram><p>You can specify individual log record types and
+ranges of log record types, in any combination.</p><p>Each <varname>type</varname> can
+be either a 2-digit hexadecimal value (a log record type, such as
+01) or a 4-digit hexadecimal value (a log record type followed by
+a subtype, such as 5901).</p></refsyn>
+<example><title>Examples</title><p>If you omit the <cmdname>CODES</cmdname> command,
+the <cmdname>SCRUB</cmdname> command writes all log record types,
+as if you had specified the following <cmdname>CODES</cmdname> command:</p><codeblock>CODES(00-FF)</codeblock><p>The
+following example excludes user log records from the output <tm
+tmtype="tm" trademark="IMS">IMS</tm> log:</p><codeblock>CODES(00-99)</codeblock><p>A
+SYSIN data set can contain multiple <cmdname>CODES</cmdname> commands.
+The following single command:</p><codeblock>CODES(01,03,40-45,67FF,50,5901-59FF)</codeblock><p>is
+equivalent to the following commands:</p><codeblock>CODES(01)
+CODES(03)
+CODES(40-45)
+CODES(67FF)
+CODES(50)
+CODES(5901-59FF)</codeblock></example>
+</refbody>
+<?tm 1424931605 2?>
+</reference>
+<?Pub *0000002456?>
