@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE reference PUBLIC "-//IBM//DTD DITA IBM Reference//EN"
+ "ibm-reference.dtd">
+<?Pub Sty _display FontColor="red"?>
+<?Pub Inc?>
+<reference id="funu_scrub_jcl" xml:lang="en-us">
+<title>Scrub JCL reference</title>
+<titlealts>
+<searchtitle><keyword conref="conrefs.dita#conrefs/searchtitle"/> Scrub JCL reference</searchtitle>
+</titlealts>
+<shortdesc>The JCL to run Scrub must contain specific statements,
+such as a SYSIN DD statement for the data set containing Scrub commands.</shortdesc>
+<refbody>
+<section><title>EXEC statement</title><p>The <cmdname>EXEC</cmdname> statement that runs the Scrub program accepts an optional
+<parmname>PARM</parmname> parameter. The <parmname>PARM</parmname> parameter specifies the release
+of <tm tmtype="tm" trademark="IMS">IMS</tm> that created the input <tm tmtype="tm" trademark="IMS"
+>IMS</tm> log. If you omit the <parmname>PARM</parmname> parameter, you must specify the <tm
+tmtype="tm" trademark="IMS">IMS</tm> version as a runtime option in the global options module.
+<keyword conref="conrefs.dita#conrefs/scrub"/> validates the <parmname>PARM</parmname> parameter
+against the log file and outputs an information message if the <tm tmtype="tm" trademark="IMS"
+>IMS</tm> version of each does not match.</p>
+<p>The <parmname>PARM</parmname> parameter takes the form
+<codeph>PARM='V<varname>nnn</varname>'</codeph> where <codeph><varname>nnn</varname></codeph> is the
+three-digit <tm tmtype="tm" trademark="IMS">IMS</tm> version and release number.</p></section>
+<example>The following example shows an <cmdname>EXEC</cmdname> statement that can be used to scrub
+a log created using <tm tmtype="tm" trademark="IMS">IMS</tm>
+<keyword conref="conrefs.dita#conrefs/max-supported-version-full-1"
+/>:<codeblock>//SCRUB    EXEC PGM=<keyword conref="conrefs.dita#conrefs/scrub-pgm"/>,PARM='V<keyword conref="conrefs.dita#conrefs/max-supported-version-vrm-1"/>'</codeblock></example>
+<section><title>Required DD statements</title><p>The JCL to run Scrub
+must contain DD statements with the following ddnames:</p><dl><dlentry>
+<dt>SYSIN</dt>
+<dd>Input data set containing Scrub commands. For example:<codeblock>//SYSIN    DD  *
+SCRUB
+/*</codeblock></dd>
+</dlentry><dlentry>
+<dt>SYSPRINT</dt>
+<dd>Output data set where Scrub echoes the input commands and writes
+messages.</dd>
+</dlentry><dlentry>
+<dt>SYSUT1</dt>
+<dd>Input <tm tmtype="tm" trademark="IMS">IMS</tm> log.</dd>
+</dlentry></dl></section>
+<section><title>Optional DD statements</title><p>The JCL to run Scrub
+can optionally contain DD statements with the following ddnames:</p><dl>
+<dlentry>
+<dt>LOGINFO</dt>
+<dd>Output log information report written by the <cmdname>SCRUB</cmdname> or <cmdname>REPORT</cmdname> command.<p>LOGINFO
+is the default ddname for the log information report.</p><p>To output
+the log information report to a different ddname, use the <parmname>OUTPUT</parmname> parameter
+of the <cmdname>SCRUB</cmdname> or <cmdname>REPORT</cmdname> parameter.</p><p>If
+you do not explicitly specify a LOGINFO DD statement, Scrub dynamically
+allocates this ddname to <codeph>SYSOUT=*</codeph>.</p></dd>
+</dlentry><dlentry>
+<dt>SYSUT2</dt>
+<dd>Output <tm tmtype="tm" trademark="IMS">IMS</tm> log (scrubbed).<p>If
+you omit this DD statement, Scrub continues, and writes the log information
+report as if you had specified an output <tm tmtype="tm" trademark="IMS">IMS</tm> log.</p><p>If
+you omit the DCB attributes (RECFM, LRECL and BLKSIZE) for the output <tm
+tmtype="tm" trademark="IMS">IMS</tm> log, Scrub uses the DCB attributes
+of the input <tm tmtype="tm" trademark="IMS">IMS</tm> log specified
+by SYSUT1.</p></dd>
+</dlentry></dl></section>
+<section><title>Return codes</title><dl><dlentry>
+<dt>0</dt>
+<dd>Request completed successfully.</dd>
+</dlentry><dlentry>
+<dt>4</dt>
+<dd>Request completed with a warning. See warning message in SYSPRINT.</dd>
+</dlentry><dlentry>
+<dt>8</dt>
+<dd>Request failed. See error message in SYSPRINT.</dd>
+</dlentry></dl></section>
+</refbody>
+<?tm 1424931603 12?>
+</reference>
+<?Pub *0000003997?>

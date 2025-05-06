@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE reference PUBLIC "-//IBM//DTD DITA IBM Reference//EN"
+ "ibm-reference.dtd">
+<?Pub Sty _display FontColor="red"?>
+<?Pub Inc?>
+<reference id="funu_scrub_command_start_stop" xml:lang="en-us">
+<title><cmdname>START</cmdname> and <cmdname>STOP</cmdname> commands</title><?Pub
+Caret -2?>
+<titlealts>
+<searchtitle><keyword conref="conrefs.dita#conrefs/searchtitle"/>
+<cmdname>REPORT</cmdname> command</searchtitle>
+</titlealts>
+<shortdesc>The optional <cmdname>START</cmdname> and <cmdname>STOP</cmdname> commands
+restrict the time range of records that the <cmdname>SCRUB</cmdname> and <cmdname>REPORT</cmdname> commands
+read from the input <tm tmtype="tm" trademark="IMS">IMS</tm> log.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>START command</indexterm><indexterm>STOP command</indexterm>
+</keywords>
+</metadata></prolog>
+<refbody>
+<section><p>By default, <cmdname>SCRUB</cmdname> and <cmdname>REPORT</cmdname> read
+all records from the input <tm tmtype="tm" trademark="IMS">IMS</tm> log.</p><p>Scrub
+interprets the start and stop times according to the time zone specified
+by the <cmdname>ZONE</cmdname> command. If you omit the <cmdname>ZONE</cmdname> command,
+or specify the default value <codeph>ZONE(LOCAL)</codeph>, Scrub interprets
+the start and stop times according to the local time zone of the system
+on which Scrub is running.</p></section>
+<refsyn><title>Syntax</title><syntaxdiagram frame="all">
+<groupseq>
+<groupchoice importance="required">
+<kwd>START</kwd>
+<kwd>STOP</kwd>
+</groupchoice>
+<groupcomp><var>yyyy</var><sep>-</sep><var>mm</var><sep>-</sep><var>dd</var>
+<sep>-</sep><var>hh</var><sep>.</sep><var>mm</var>
+<groupcomp importance="optional"><sep>.</sep><var>ss</var>
+<groupcomp importance="optional"><sep>.</sep><var>th</var></groupcomp>
+</groupcomp>
+</groupcomp>
+</groupseq>
+</syntaxdiagram></refsyn>
+<example><title>Example</title><p>The following example selects records for <keyword conref="conrefs.dita#conrefs/random-date-long"
+/> from 10:30 a.m. to 2:30 p.m.:</p><codeblock>START <keyword conref="conrefs.dita#conrefs/random-date"/>-10.30
+STOP <keyword conref="conrefs.dita#conrefs/random-date"/>-14.30</codeblock></example>
+</refbody>
+<?tm 1424931605 2?>
+</reference>
+<?Pub *0000002188?>
